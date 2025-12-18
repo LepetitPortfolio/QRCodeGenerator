@@ -1,0 +1,8 @@
+﻿  Main.cpp
+D:\Projets\QRCodeGenerator\Main.cpp(49,27): warning C4267: 'argument': conversion from 'size_t' to 'uint32_t', possible loss of data
+D:\Projets\QRCodeGenerator\Main.cpp(198,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 393 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  QRCodeGenerator.vcxproj -> D:\Projets\QRCodeGenerator\x64\Release\QRCodeGenerator.exe
