@@ -1,8 +1,11 @@
+#include "QRCodeData.h"
 #include "QRCodePositionsPattern.h"
 #include "QRCodeTimingPattern.h"
 #include "QRCodeAligningPattern.h"
 #include "QRCodeVersionPattern.h"
 #include "QRCodeFormatPattern.h"
+#include "QRCodeDataEncoding.h"
+
 
 #include <iostream>
 #include <vector>
@@ -29,6 +32,7 @@ int GetMatrixSize(int _QRVersion)
 /// @return Matrice QR sous forme de tableau 2D d'entiers (0 ou 1)
 std::vector<std::vector<int>> GenerateSimpleQR(const std::string _Text, int _QRVersion, CorrectionLevel _CorrectionLevel, uint8_t _MaskPatern)
 {
+	QRCodeData qrData;
     int matrixSize = GetMatrixSize(_QRVersion);
     std::vector<std::vector<int>> simpleQRCode(matrixSize, std::vector<int>(matrixSize, 0));
 
@@ -46,6 +50,8 @@ std::vector<std::vector<int>> GenerateSimpleQR(const std::string _Text, int _QRV
     }
 
     QRCodeFormatPattern::GenerateFormatPattern(simpleQRCode, matrixSize, _CorrectionLevel, _MaskPatern);
+
+    qrData.Bits = QRCodeDataEncoding::EncodeTextToDataCodewords(_Text, _QRVersion, _CorrectionLevel);
 
     return simpleQRCode;
 }

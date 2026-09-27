@@ -126,6 +126,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="QRCodeAligningPattern.cpp" />
     <ClCompile Include="QRCodeBCHCode.cpp" />
+    <ClCompile Include="QRCodeDataEncoding.cpp" />
     <ClCompile Include="QRCodeFormatPattern.cpp" />
     <ClCompile Include="QRCodePNGFile.cpp" />
     <ClCompile Include="QRCodePositionsPattern.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="QRCodeAligningPattern.h" />
     <ClInclude Include="QRCodeBCHCode.h" />
     <ClInclude Include="QRCodeColor.h" />
+    <ClInclude Include="QRCodeDataEncoding.h" />
     <ClInclude Include="QRCodeData.h" />
     <ClInclude Include="QRCodeFormatPattern.h" />
     <ClInclude Include="QRCodePNGFile.h" />
