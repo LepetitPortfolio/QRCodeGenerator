@@ -5,8 +5,6 @@
 class QRCodeVersionPattern
 {
 public:
-    QRCodeVersionPattern() = default;
-    ~QRCodeVersionPattern() = default;
 
     /// @brief Génère les motifs de version pour les QR codes de version 7 et supérieure
     /// @param _SimpleQRCode Matrice QR à modifier

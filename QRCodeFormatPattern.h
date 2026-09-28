@@ -18,9 +18,6 @@ class QRCodeFormatPattern
 
 public:
 
-    QRCodeFormatPattern() = default;
-    ~QRCodeFormatPattern() = default;
-
     /// @brief Génère les motifs de format contenant les informations de correction d'erreur et de masque
     /// @param _SimpleQRCode Matrice QR à modifier
     /// @param _MatrixSize Taille de la matrice QR

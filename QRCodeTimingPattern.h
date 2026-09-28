@@ -5,8 +5,6 @@
 class QRCodeTimingPattern
 {
 public:
-    QRCodeTimingPattern() = default;
-    ~QRCodeTimingPattern() = default;
 
     /// @brief Génère les motifs de synchronisation (timing patterns) entre les motifs de positionnement
     /// @param _SimpleQRCode Matrice QR à modifier

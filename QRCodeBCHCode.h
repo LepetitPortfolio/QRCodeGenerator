@@ -5,8 +5,6 @@
 class QRCodeBCHCode
 {
 public:
-    QRCodeBCHCode() = default;
-    ~QRCodeBCHCode() = default;
 
     /// @brief Calcule le code BCH pour une valeur d'entrée donnée
     /// @param _InputeValue Valeur d'entrée à encoder

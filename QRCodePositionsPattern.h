@@ -6,9 +6,6 @@ class QRCodePositionsPattern
 {
 public:
 
-    QRCodePositionsPattern() = default;
-    ~QRCodePositionsPattern() = default;
-
     /// @brief Génère les trois motifs de positionnement aux coins de la matrice QR
     /// @param _SimpleQRCode Matrice QR à modifier
     /// @param _MatrixSize Taille de la matrice QR
