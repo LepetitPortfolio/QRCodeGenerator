@@ -79,8 +79,9 @@ int main()
     int size = data.MatrixQR.size() * scale;
 
     // Couleur du QR (modifiables)
-    unsigned char R1 = 20, G1 = 20, B1 = 20, A1 = 255; // module
-    unsigned char R0 = 240, G0 = 240, B0 = 240, A0 = 255; // fond (transparent)
+	data.Bit1Color = { 20, 20, 20, 255 };
+	data.Bit0Color = { 240, 240, 240, 255 };
+
 
     std::vector<unsigned char> pixelData(size * size * 4);
 
@@ -95,10 +96,10 @@ int main()
 
             int idx = (y * size + x) * 4;
 
-            pixelData[idx + 0] = bit ? R1 : R0;
-            pixelData[idx + 1] = bit ? G1 : G0;
-            pixelData[idx + 2] = bit ? B1 : B0;
-            pixelData[idx + 3] = bit ? A1 : A0;
+            pixelData[idx + 0] = bit ? data.Bit1Color.R : data.Bit0Color.R;
+            pixelData[idx + 1] = bit ? data.Bit1Color.G : data.Bit0Color.G;
+            pixelData[idx + 2] = bit ? data.Bit1Color.B : data.Bit0Color.B;
+            pixelData[idx + 3] = bit ? data.Bit1Color.A : data.Bit0Color.A;
         }
     }
 
