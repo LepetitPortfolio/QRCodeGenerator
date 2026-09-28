@@ -1,4 +1,5 @@
 #include "QRCodeDataEncoding.h"
+#include "QRCodeData.h"
 
 #include <stdexcept>
 
@@ -16,7 +17,7 @@ std::vector<uint8_t> QRCodeDataEncoding::EncodeTextToDataCodewords(const std::st
 		throw std::invalid_argument("Niveau de correction invalide (L, M, Q ou H).");
 	}
 
-	const std::size_t capacityCodewords = c_DataCodewords[_Version - 1][levelIndex];
+	const std::size_t capacityCodewords = DataCodewords[_Version - 1][levelIndex];
 	const std::size_t capacityBits = capacityCodewords * 8;
 	const int countBitWidth = _Version <= 9 ? 8 : 16;
 	const std::size_t maxByteCount = countBitWidth == 8 ? 255 : 65535;

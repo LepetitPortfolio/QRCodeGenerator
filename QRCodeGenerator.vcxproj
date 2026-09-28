@@ -130,6 +130,7 @@
     <ClCompile Include="QRCodeFormatPattern.cpp" />
     <ClCompile Include="QRCodePNGFile.cpp" />
     <ClCompile Include="QRCodePositionsPattern.cpp" />
+    <ClCompile Include="QRCodeReedSolomonCorrector.cpp" />
     <ClCompile Include="QRCodeTimingPattern.cpp" />
     <ClCompile Include="QRCodeVersionPattern.cpp" />
   </ItemGroup>
@@ -142,6 +143,7 @@
     <ClInclude Include="QRCodeFormatPattern.h" />
     <ClInclude Include="QRCodePNGFile.h" />
     <ClInclude Include="QRCodePositionsPattern.h" />
+    <ClInclude Include="QRCodeReedSolomonCorrector.h" />
     <ClInclude Include="QRCodeTimingPattern.h" />
     <ClInclude Include="QRCodeVersionPattern.h" />
   </ItemGroup>
