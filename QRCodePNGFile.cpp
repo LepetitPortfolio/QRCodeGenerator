@@ -3,10 +3,6 @@
 
 void QRCodePNGFile::GeneratePNGFile(const std::string &_Filename, int _Width, int _Height, const std::vector<unsigned char> &_PixelData)
 {
-}
-
-void QRCodePNGFile::SavePNG(const std::string &_Filename, int _Width, int _Height, const std::vector<unsigned char> &_PixelData)
-{
     std::ofstream out(_Filename, std::ios::binary);
 
     unsigned char pngSignature[8] = { 137, 80, 78, 71, 13, 10, 26, 10 };

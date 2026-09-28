@@ -23,7 +23,5 @@ private:
 	static std::vector<uint8_t> MakeGenerator(int _Degree);
 
     static std::vector<uint8_t> MakeRemainder(const std::vector<uint8_t>& _Data, const std::vector<uint8_t>& _Generator);
-
-
 };
 

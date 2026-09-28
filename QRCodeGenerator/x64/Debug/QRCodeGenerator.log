@@ -1,17 +1,3 @@
 ﻿  Main.cpp
-D:\Projets\QRCodeGenerator\Main.cpp(88,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  QRCodeDataEncoding.cpp
-  QRCodeReedSolomonCorrector.cpp
-D:\Projets\QRCodeGenerator\QRCodeReedSolomonCorrector.cpp(116,26): error C2352: 'QRCodeReedSolomonCorrector::MultiplyGF256': a call of a non-static member function requires an object
-      D:\Projets\QRCodeGenerator\QRCodeReedSolomonCorrector.cpp(96,37):
-      see declaration of 'QRCodeReedSolomonCorrector::MultiplyGF256'
-  
-D:\Projets\QRCodeGenerator\QRCodeReedSolomonCorrector.cpp(122,16): error C2352: 'QRCodeReedSolomonCorrector::MultiplyGF256': a call of a non-static member function requires an object
-      D:\Projets\QRCodeGenerator\QRCodeReedSolomonCorrector.cpp(96,37):
-      see declaration of 'QRCodeReedSolomonCorrector::MultiplyGF256'
-  
-D:\Projets\QRCodeGenerator\QRCodeReedSolomonCorrector.cpp(143,29): error C2352: 'QRCodeReedSolomonCorrector::MultiplyGF256': a call of a non-static member function requires an object
-      D:\Projets\QRCodeGenerator\QRCodeReedSolomonCorrector.cpp(96,37):
-      see declaration of 'QRCodeReedSolomonCorrector::MultiplyGF256'
-  
-  Generating Code...
+D:\Projets\QRCodeGenerator\Main.cpp(92,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  QRCodeGenerator.vcxproj -> D:\Projets\QRCodeGenerator\x64\Debug\QRCodeGenerator.exe

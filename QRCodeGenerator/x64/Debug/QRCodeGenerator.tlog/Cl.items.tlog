@@ -1,8 +1,11 @@
 D:\Projets\QRCodeGenerator\Main.cpp;D:\Projets\QRCodeGenerator\QRCodeGenerator\x64\Debug\Main.obj
 D:\Projets\QRCodeGenerator\QRCodeAligningPattern.cpp;D:\Projets\QRCodeGenerator\QRCodeGenerator\x64\Debug\QRCodeAligningPattern.obj
 D:\Projets\QRCodeGenerator\QRCodeBCHCode.cpp;D:\Projets\QRCodeGenerator\QRCodeGenerator\x64\Debug\QRCodeBCHCode.obj
+D:\Projets\QRCodeGenerator\QRCodeBitPlacement.cpp;D:\Projets\QRCodeGenerator\QRCodeGenerator\x64\Debug\QRCodeBitPlacement.obj
+D:\Projets\QRCodeGenerator\QRCodeDataEncoding.cpp;D:\Projets\QRCodeGenerator\QRCodeGenerator\x64\Debug\QRCodeDataEncoding.obj
 D:\Projets\QRCodeGenerator\QRCodeFormatPattern.cpp;D:\Projets\QRCodeGenerator\QRCodeGenerator\x64\Debug\QRCodeFormatPattern.obj
 D:\Projets\QRCodeGenerator\QRCodePNGFile.cpp;D:\Projets\QRCodeGenerator\QRCodeGenerator\x64\Debug\QRCodePNGFile.obj
 D:\Projets\QRCodeGenerator\QRCodePositionsPattern.cpp;D:\Projets\QRCodeGenerator\QRCodeGenerator\x64\Debug\QRCodePositionsPattern.obj
+D:\Projets\QRCodeGenerator\QRCodeReedSolomonCorrector.cpp;D:\Projets\QRCodeGenerator\QRCodeGenerator\x64\Debug\QRCodeReedSolomonCorrector.obj
 D:\Projets\QRCodeGenerator\QRCodeTimingPattern.cpp;D:\Projets\QRCodeGenerator\QRCodeGenerator\x64\Debug\QRCodeTimingPattern.obj
 D:\Projets\QRCodeGenerator\QRCodeVersionPattern.cpp;D:\Projets\QRCodeGenerator\QRCodeGenerator\x64\Debug\QRCodeVersionPattern.obj

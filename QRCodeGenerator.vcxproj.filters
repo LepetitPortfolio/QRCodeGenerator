@@ -45,6 +45,9 @@
     <ClCompile Include="QRCodeReedSolomonCorrector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QRCodeBitPlacement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QRCodeAligningPattern.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QRCodeReedSolomonCorrector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QRCodeBitPlacement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,6 +5,9 @@
 #include "QRCodeVersionPattern.h"
 #include "QRCodeFormatPattern.h"
 #include "QRCodeDataEncoding.h"
+#include "QRCodeReedSolomonCorrector.h"
+#include "QRCodeBitPlacement.h"
+#include "QRCodePNGFile.h"
 
 
 #include <iostream>
@@ -30,30 +33,32 @@ int GetMatrixSize(int _QRVersion)
 /// @param _CorrectionLevel Niveau de correction d'erreur
 /// @param _MaskPatern Motif de masque à appliquer
 /// @return Matrice QR sous forme de tableau 2D d'entiers (0 ou 1)
-std::vector<std::vector<int>> GenerateSimpleQR(const std::string _Text, int _QRVersion, CorrectionLevel _CorrectionLevel, uint8_t _MaskPatern)
+QRCodeData GenerateSimpleQR(const std::string _Text, int _QRVersion, CorrectionLevel _CorrectionLevel, uint8_t _MaskPatern)
 {
-	QRCodeData qrData;
+	QRCodeData outQRData{};
     int matrixSize = GetMatrixSize(_QRVersion);
-    std::vector<std::vector<int>> simpleQRCode(matrixSize, std::vector<int>(matrixSize, 0));
+	outQRData.MatrixQR = std::vector<std::vector<int>>(matrixSize, std::vector<int>(matrixSize, 0));
 
-    QRCodePositionsPattern::GeneratePositionsPattern(simpleQRCode, matrixSize);
-    QRCodeTimingPattern::GenerateTimingPattern(simpleQRCode, matrixSize);
+    /**/QRCodePositionsPattern::GeneratePositionsPattern(outQRData.MatrixQR, matrixSize);
+    QRCodeTimingPattern::GenerateTimingPattern(outQRData    .MatrixQR, matrixSize);
     
     if (_QRVersion > 1)
     {
-        QRCodeAligningPattern::GenerateAligningPattern(simpleQRCode, matrixSize);
-
+        QRCodeAligningPattern::GenerateAligningPattern(outQRData.MatrixQR, matrixSize);
         if (_QRVersion > 6)
         {
-            QRCodeVersionPattern::GenerateVersionPattern(simpleQRCode, matrixSize, _QRVersion);
+            QRCodeVersionPattern::GenerateVersionPattern(outQRData.MatrixQR, matrixSize, _QRVersion);
         }
     }
 
-    QRCodeFormatPattern::GenerateFormatPattern(simpleQRCode, matrixSize, _CorrectionLevel, _MaskPatern);
+    QRCodeFormatPattern::GenerateFormatPattern(outQRData.MatrixQR, matrixSize, _CorrectionLevel, _MaskPatern);
 
-    qrData.Bits = QRCodeDataEncoding::EncodeTextToDataCodewords(_Text, _QRVersion, _CorrectionLevel);
+    outQRData.Bits = QRCodeDataEncoding::EncodeTextToDataCodewords(_Text, _QRVersion, _CorrectionLevel);
 
-    return simpleQRCode;
+    outQRData.Bits = QRCodeReedSolomonCorrector::ErrorCorrectionAndInterleave(outQRData.Bits, _QRVersion, _CorrectionLevel);
+
+	QRCodeBitPlacement::PlaceCodewords(outQRData.Bits, _QRVersion, outQRData.MatrixQR);
+    return outQRData;
 }
 
 /// @brief Affiche la matrice QR dans la console avec des caractères personnalisables
@@ -80,12 +85,12 @@ int main()
     std::cout << "Entrez le texte ou URL à coder : ";
     std::getline(std::cin, text);
 
-    std::vector<std::vector<int>> qrMatrix = GenerateSimpleQR(text, 7, CorrectionLevel::M, 2);
+    QRCodeData data = GenerateSimpleQR(text, 7, CorrectionLevel::M, 2);
 
-    ShowMatrixQR(qrMatrix, " ", "1");
+    //ShowMatrixQR(data.MatrixQR, " ", "1");
 
     int scale = 20;
-    int size = qrMatrix.size() * scale;
+    int size = data.MatrixQR.size() * scale;
 
     // Couleur du QR (modifiables)
     unsigned char R1 = 20, G1 = 20, B1 = 20, A1 = 255; // module
@@ -100,7 +105,7 @@ int main()
             int qrX = x / scale;
             int qrY = y / scale;
 
-            bool bit = qrMatrix[qrY][qrX];
+            bool bit = data.MatrixQR[qrY][qrX];
 
             int idx = (y * size + x) * 4;
 
@@ -111,7 +116,7 @@ int main()
         }
     }
 
-    //SavePNG("QRCode.png", size, size, pixelData);
+    QRCodePNGFile::GeneratePNGFile("QRCode.png", size, size, pixelData);
     //std::cout << "QR Code enregistré sous 'QRCode.png'" << std::endl;
 
     return 0;
