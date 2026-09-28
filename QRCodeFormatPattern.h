@@ -1,17 +1,9 @@
 #pragma once
+#include "QRCodeData.h"
 
 #include <cstdint>
 #include <vector>
 
-
-/// @brief Niveaux de correction pour le QR code
-enum CorrectionLevel
-{
-    L = 1,
-    M = 0,
-    Q = 3,
-    H = 2
-};
 
 class QRCodeFormatPattern
 {

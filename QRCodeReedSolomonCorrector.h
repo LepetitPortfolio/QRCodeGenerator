@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "QRCodeFormatPattern.h"
+#include "QRCodeData.h"
 
 #include <cstddef>
 #include <cstdint>

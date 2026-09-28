@@ -124,30 +124,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="QRCodeAligningPattern.cpp" />
     <ClCompile Include="QRCodeBCHCode.cpp" />
     <ClCompile Include="QRCodeBitPlacement.cpp" />
     <ClCompile Include="QRCodeDataEncoding.cpp" />
     <ClCompile Include="QRCodeFormatPattern.cpp" />
+    <ClCompile Include="QRCodeFunctionPatterns.cpp" />
     <ClCompile Include="QRCodePNGFile.cpp" />
-    <ClCompile Include="QRCodePositionsPattern.cpp" />
     <ClCompile Include="QRCodeReedSolomonCorrector.cpp" />
-    <ClCompile Include="QRCodeTimingPattern.cpp" />
-    <ClCompile Include="QRCodeVersionPattern.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="QRCodeAligningPattern.h" />
     <ClInclude Include="QRCodeBCHCode.h" />
     <ClInclude Include="QRCodeBitPlacement.h" />
     <ClInclude Include="QRCodeColor.h" />
     <ClInclude Include="QRCodeDataEncoding.h" />
     <ClInclude Include="QRCodeData.h" />
     <ClInclude Include="QRCodeFormatPattern.h" />
+    <ClInclude Include="QRCodeFunctionPatterns.h" />
     <ClInclude Include="QRCodePNGFile.h" />
-    <ClInclude Include="QRCodePositionsPattern.h" />
     <ClInclude Include="QRCodeReedSolomonCorrector.h" />
-    <ClInclude Include="QRCodeTimingPattern.h" />
-    <ClInclude Include="QRCodeVersionPattern.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

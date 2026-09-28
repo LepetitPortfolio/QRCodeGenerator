@@ -1,8 +1,5 @@
 #include "QRCodeData.h"
-#include "QRCodePositionsPattern.h"
-#include "QRCodeTimingPattern.h"
-#include "QRCodeAligningPattern.h"
-#include "QRCodeVersionPattern.h"
+#include "QRCodeFunctionPatterns.h"
 #include "QRCodeFormatPattern.h"
 #include "QRCodeDataEncoding.h"
 #include "QRCodeReedSolomonCorrector.h"
@@ -37,19 +34,8 @@ QRCodeData GenerateSimpleQR(const std::string _Text, int _QRVersion, CorrectionL
 {
 	QRCodeData outQRData{};
     int matrixSize = GetMatrixSize(_QRVersion);
-	outQRData.MatrixQR = std::vector<std::vector<int>>(matrixSize, std::vector<int>(matrixSize, 0));
 
-    /**/QRCodePositionsPattern::GeneratePositionsPattern(outQRData.MatrixQR, matrixSize);
-    QRCodeTimingPattern::GenerateTimingPattern(outQRData    .MatrixQR, matrixSize);
-    
-    if (_QRVersion > 1)
-    {
-        QRCodeAligningPattern::GenerateAligningPattern(outQRData.MatrixQR, matrixSize);
-        if (_QRVersion > 6)
-        {
-            QRCodeVersionPattern::GenerateVersionPattern(outQRData.MatrixQR, matrixSize, _QRVersion);
-        }
-    }
+	QRCodeFunctionPatterns::Generate(outQRData, _QRVersion, _CorrectionLevel, _MaskPatern);
 
     QRCodeFormatPattern::GenerateFormatPattern(outQRData.MatrixQR, matrixSize, _CorrectionLevel, _MaskPatern);
 
@@ -98,9 +84,9 @@ int main()
 
     std::vector<unsigned char> pixelData(size * size * 4);
 
-    for (int y = 0; y < size; y++)
+    for (int y = 2; y < size; y++)
     {
-        for (int x = 0; x < size; x++)
+        for (int x = 2; x < size; x++)
         {
             int qrX = x / scale;
             int qrY = y / scale;
@@ -117,7 +103,7 @@ int main()
     }
 
     QRCodePNGFile::GeneratePNGFile("QRCode.png", size, size, pixelData);
-    //std::cout << "QR Code enregistré sous 'QRCode.png'" << std::endl;
+    std::cout << "QR Code enregistré sous 'QRCode.png'" << std::endl;
 
     return 0;
 }

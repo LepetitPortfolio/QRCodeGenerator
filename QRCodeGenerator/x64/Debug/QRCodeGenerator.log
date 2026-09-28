@@ -1,14 +1,3 @@
 ﻿  Main.cpp
-D:\Projets\QRCodeGenerator\Main.cpp(93,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  QRCodeBCHCode.cpp
-D:\Projets\QRCodeGenerator\QRCodeBCHCode.cpp(46,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Projets\QRCodeGenerator\QRCodeBCHCode.cpp(47,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  QRCodeBitPlacement.cpp
-  QRCodeDataEncoding.cpp
-  QRCodeFormatPattern.cpp
-  QRCodePositionsPattern.cpp
-  QRCodeReedSolomonCorrector.cpp
-  QRCodeTimingPattern.cpp
-  QRCodeVersionPattern.cpp
-  Generating Code...
+D:\Projets\QRCodeGenerator\Main.cpp(79,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   QRCodeGenerator.vcxproj -> D:\Projets\QRCodeGenerator\x64\Debug\QRCodeGenerator.exe

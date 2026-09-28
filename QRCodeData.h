@@ -6,11 +6,20 @@
 #include <cstdint>
 #include <vector>
 
+/// @brief Niveaux de correction pour le QR code
+enum CorrectionLevel
+{
+	L = 1,
+	M = 0,
+	Q = 3,
+	H = 2
+};
 
 struct QRCodeData
 {
 public:
     std::vector<std::vector<int>> MatrixQR;
+	std::vector<std::vector<bool>> Reserved;
     std::vector<uint8_t> Bits;
     RGBA Bit1Color;
     RGBA Bit0Color;

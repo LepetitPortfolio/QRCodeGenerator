@@ -3,16 +3,11 @@
   "WorkspaceRootPath": "D:\\Projets\\QRCodeGenerator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C981732C-B6A3-480A-99EF-D22C9D48F441}|QRCodeGenerator.vcxproj|D:\\Projets\\QRCodeGenerator\\QRCodeAligningPattern.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{C981732C-B6A3-480A-99EF-D22C9D48F441}|QRCodeGenerator.vcxproj|solutionrelative:QRCodeAligningPattern.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C981732C-B6A3-480A-99EF-D22C9D48F441}|QRCodeGenerator.vcxproj|D:\\Projets\\QRCodeGenerator\\QRCodeBitPlacement.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{C981732C-B6A3-480A-99EF-D22C9D48F441}|QRCodeGenerator.vcxproj|solutionrelative:QRCodeBitPlacement.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C981732C-B6A3-480A-99EF-D22C9D48F441}|QRCodeGenerator.vcxproj|D:\\Projets\\QRCodeGenerator\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{C981732C-B6A3-480A-99EF-D22C9D48F441}|QRCodeGenerator.vcxproj|solutionrelative:Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Logiciels\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector||{3B902123-F8A7-4915-9F01-361F908088D0}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,43 +17,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "QRCodeAligningPattern.h",
-              "DocumentMoniker": "D:\\Projets\\QRCodeGenerator\\QRCodeAligningPattern.h",
-              "RelativeDocumentMoniker": "QRCodeAligningPattern.h",
-              "ToolTip": "D:\\Projets\\QRCodeGenerator\\QRCodeAligningPattern.h",
-              "RelativeToolTip": "QRCodeAligningPattern.h",
-              "ViewState": "AgIAABEAAAAAAAAAAAAuwCwAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-09-28T02:44:20.341Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "QRCodeBitPlacement.h",
-              "DocumentMoniker": "D:\\Projets\\QRCodeGenerator\\QRCodeBitPlacement.h",
-              "RelativeDocumentMoniker": "QRCodeBitPlacement.h",
-              "ToolTip": "D:\\Projets\\QRCodeGenerator\\QRCodeBitPlacement.h",
-              "RelativeToolTip": "QRCodeBitPlacement.h",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAuwIkAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-09-28T02:39:29.127Z",
+              "Title": "vector",
+              "DocumentMoniker": "D:\\Logiciels\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
+              "RelativeDocumentMoniker": "..\\..\\Logiciels\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
+              "ToolTip": "D:\\Logiciels\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
+              "RelativeToolTip": "..\\..\\Logiciels\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
+              "ViewState": "AgIAAHYHAAAAAAAAAAAiwIkHAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-09-28T22:30:43.639Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Main.cpp",
               "DocumentMoniker": "D:\\Projets\\QRCodeGenerator\\Main.cpp",
               "RelativeDocumentMoniker": "Main.cpp",
-              "ToolTip": "D:\\Projets\\QRCodeGenerator\\Main.cpp",
-              "RelativeToolTip": "Main.cpp",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAAHoAAAABAAAAAAAAAA==",
+              "ToolTip": "D:\\Projets\\QRCodeGenerator\\Main.cpp*",
+              "RelativeToolTip": "Main.cpp*",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAAF8AAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-09-26T00:24:33.141Z",
               "EditorCaption": ""
