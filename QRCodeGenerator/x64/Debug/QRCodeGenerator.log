@@ -1,3 +1,5 @@
 ﻿  Main.cpp
 D:\Projets\QRCodeGenerator\Main.cpp(79,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  QRCodeFunctionPatterns.cpp
+  Generating Code...
   QRCodeGenerator.vcxproj -> D:\Projets\QRCodeGenerator\x64\Debug\QRCodeGenerator.exe
