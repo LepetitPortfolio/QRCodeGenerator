@@ -49,17 +49,19 @@ QRCodeData QRCodeGenerator::GenerateSimpleQR(const std::string _Text, int _QRVer
 	return outQRData;
 }
 
-QRPixelData QRCodeGenerator::GenerateQRPixelData(const QRCodeData& _QRData, int _PixelScale)
+QRPixelData QRCodeGenerator::GenerateQRPixelData(const QRCodeData& _QRData, int _PixelScale, int _MargeSize)
 {
-	int size = _QRData.MatrixQR.size() * _PixelScale;
+	int size = (_QRData.MatrixQR.size() + _MargeSize * 2) * _PixelScale;
+	int pixelMargeSize = _MargeSize * _PixelScale;
+
 	QRPixelData outQRPixelData(size, size, _PixelScale, _QRData.FontColor);
 
-	for (int y = 0; y < size; y++)
+	for (int y = pixelMargeSize; y < size - pixelMargeSize; y++)
 	{
-		for (int x = 0; x < size; x++)
+		for (int x = pixelMargeSize; x < size - pixelMargeSize; x++)
 		{
-			int qrX = x / _PixelScale;
-			int qrY = y / _PixelScale;
+			int qrX = (x / _PixelScale) - _MargeSize;
+			int qrY = (y / _PixelScale) - _MargeSize;
 
 			bool bit = _QRData.MatrixQR[qrY][qrX];
 
@@ -71,3 +73,5 @@ QRPixelData QRCodeGenerator::GenerateQRPixelData(const QRCodeData& _QRData, int 
 
 	return outQRPixelData;
 }
+
+

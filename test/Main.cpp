@@ -29,7 +29,7 @@ int main()
 
 	std::string filename = "QRCode.png";
 
-	QRCodeGenerator::GenerateQRCode(filename, text, CorrectionLevel::M, 0);
+	QRCodeGenerator::GenerateQRCode(filename, text, CorrectionLevel::M);
 	
 	std::cout << "QR Code enregistré sous " << filename << std::endl;
 
