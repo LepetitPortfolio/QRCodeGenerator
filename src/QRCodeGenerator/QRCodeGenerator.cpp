@@ -4,6 +4,7 @@
 #include "QRCodeDataEncoding.h"
 #include "QRCodeReedSolomonCorrector.h"
 #include "QRCodeBitPlacement.h"
+#include "QRCodeMasking.h"
 #include "QRCodePNGFile.h"
 
 void QRCodeGenerator::GenerateQRCode(const std::string& _Filename, const std::string _Text, CorrectionLevel _CorrectionLevel, int _PixelScale, uint8_t _MaskPatern)
@@ -42,6 +43,9 @@ QRCodeData QRCodeGenerator::GenerateSimpleQR(const std::string _Text, int _QRVer
 	outQRData.Bits = QRCodeReedSolomonCorrector::ErrorCorrectionAndInterleave(outQRData.Bits, _QRVersion, _CorrectionLevel);
 
 	QRCodeBitPlacement::PlaceCodewords(outQRData.Bits, _QRVersion, outQRData.MatrixQR);
+
+	QRCodeMasking::ApplyMask(outQRData.MatrixQR, outQRData.Reserved, _MaskPatern);
+
 	return outQRData;
 }
 

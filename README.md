@@ -1,8 +1,8 @@
 # QRCodeGenerator
 
-Projet C++17 qui vise à générer un QR Code à partir d'un texte ou d'une URL, puis à l'enregistrer au format PNG. La version du QR Code est choisie automatiquement selon la longueur du texte et le niveau de correction demandé.
+Petit projet C++17 qui vise à générer un QR Code à partir d'un texte ou d'une URL, puis à l'enregistrer au format PNG. La version du QR Code est choisie automatiquement selon la longueur du texte et le niveau de correction demandé.
 
-> **État du projet : prototype en cours de développement.** La chaîne de génération est présente, mais le masquage des données et la configuration de format doivent être finalisés avant de considérer les PNG comme systématiquement lisibles par un scanner.
+> **État du projet : prototype en cours de développement.** L'application d'un masque choisi est maintenant intégrée. La sélection automatique du meilleur masque, la bordure blanche de sécurité et des vérifications avec un lecteur QR restent à faire.
 
 ## Fonctionnalités prévues
 
@@ -10,6 +10,7 @@ Projet C++17 qui vise à générer un QR Code à partir d'un texte ou d'une URL,
 - Sélection de la plus petite version QR adaptée, parmi les versions 1 à 40.
 - Niveaux de correction L, M, Q et H avec correction Reed–Solomon.
 - Motifs fonctionnels, placement des codewords et génération d'une image PNG.
+- Application d'un masque QR choisi parmi les huit masques normalisés (0 à 7).
 - Choix de la taille en pixels par module et des couleurs RGBA.
 
 ## Organisation du projet
@@ -25,6 +26,7 @@ QRCodeGenerator/
 │       ├── QRCodeReedSolomonCorrector.h / .cpp
 │       ├── QRCodeFunctionPatterns.h / .cpp
 │       ├── QRCodeBitPlacement.h / .cpp
+│       ├── QRCodeMasking.h / .cpp
 │       ├── QRCodeFormatPattern.h / .cpp
 │       ├── QRCodePNGFile.h / .cpp
 │       ├── QRCodeData.h
@@ -62,13 +64,16 @@ La première surcharge utilise des couleurs par défaut : modules foncés en `{2
 
 Le fichier `QRCode.png` est créé dans le répertoire de travail du programme. Le niveau de correction accepte `CorrectionLevel::L`, `CorrectionLevel::M`, `CorrectionLevel::Q` ou `CorrectionLevel::H`. Le masque doit être compris entre 0 et 7.
 
+Le numéro du masque doit être le même dans les informations de format et dans l'appel à `QRCodeMasking`. Le projet applique le numéro fourni ; il ne compare pas encore les huit masques pour retenir automatiquement celui qui donne la matrice la plus lisible.
+
 ## Chaîne de génération
 
 1. `QRCodeDataEncoding` sélectionne une version et convertit le texte en codewords de données.
 2. `QRCodeReedSolomonCorrector` répartit les données en blocs, calcule les octets de correction et entrelace les blocs.
 3. `QRCodeFunctionPatterns` dessine les motifs de position, de synchronisation, d'alignement, de format et de version, en marquant les cases réservées.
 4. `QRCodeBitPlacement` place les codewords dans les cases disponibles de la matrice.
-5. `QRCodeGenerator` transforme les modules en pixels RGBA et `QRCodePNGFile` écrit l'image PNG.
+5. `QRCodeMasking` applique le masque choisi aux seules cases non réservées.
+6. `QRCodeGenerator` transforme les modules en pixels RGBA et `QRCodePNGFile` écrit l'image PNG.
 
 ## Compilation
 
@@ -81,7 +86,7 @@ cmake -S . -B build
 cmake --build build --target QRCodeGenerator
 ```
 
-Cela construit la bibliothèque statique `QRCodeGenerator`.
+Cela configure le projet et construit la bibliothèque statique `QRCodeGenerator`. Comme CMake collecte les fichiers source avec `GLOB_RECURSE`, relancer la configuration après l'ajout d'un nouveau fichier `.cpp`.
 
 ### Exemple interactif
 
@@ -96,8 +101,7 @@ L'exemple passe actuellement `0` comme quatrième argument à `GenerateQRCode`, 
 ## Limites connues
 
 - L'encodage du contenu est en mode octets. La longueur correspond au nombre d'octets de `std::string`; les textes UTF-8 accentués peuvent donc occuper plusieurs octets. Aucun marqueur ECI n'est ajouté pour préciser l'encodage Unicode.
-- Le numéro de masque est écrit dans les informations de format, mais le code source ne contient pas encore l'étape qui applique le masque aux modules de données ni la sélection automatique du meilleur masque.
-- `QRCodeGenerator::GenerateSimpleQR` appelle à la fois `QRCodeFunctionPatterns::Generate` et l'ancien `QRCodeFormatPattern::GenerateFormatPattern`. Cette seconde écriture utilise le calcul BCH historique et réécrit les cases de format ; il faut harmoniser ces deux chemins.
+- Le masque fourni (0 à 7) est appliqué et indiqué dans les informations de format ; le programme ne choisit pas automatiquement le meilleur masque.
+- `QRCodeFormatPattern` et `QRCodeBCHCode` sont encore présents dans le projet, mais le chemin principal génère maintenant le format avec `QRCodeFunctionPatterns`.
 - L'image PNG ne reçoit pas encore la bordure blanche standard (quiet zone) autour de la matrice.
-- Le PNG généré doit être vérifié avec un lecteur QR après correction de ces points ; sa lecture n'est pas garantie dans l'état actuel.
-
+- Le PNG doit encore être vérifié avec un lecteur QR ; sa lecture n'a pas été validée.
