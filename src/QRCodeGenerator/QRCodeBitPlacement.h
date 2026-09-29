@@ -23,8 +23,6 @@ public:
 	*/
 	static void PlaceCodewords(const std::vector<uint8_t>& _InterleavedCodewords, int _Version, std::vector<std::vector<int>>& _Matrix);
 
-private:
-
 	/**
     * @brief Place les codewords entrelacés dans la matrice du code QR, en évitant les zones réservées.
     * @param _InterleavedCodewords Vecteur des codewords entrelacés.
@@ -66,6 +64,7 @@ private:
     */
 	static void PlaceCodewords(const std::vector<uint8_t>& _InterleavedCodewords, int _Version, std::vector<std::vector<int>>& _Matrix, const std::vector<std::vector<bool>>& _Function);
 
+private:
     /**
     * @brief Crée un masque de fonctions pour une version de code QR donnée.
     * @param _Version Version du code QR (de 1 à 40).

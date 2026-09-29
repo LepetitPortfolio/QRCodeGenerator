@@ -13,7 +13,6 @@ public:
 	* @param _Text Texte à encoder dans le code QR.
 	* @param _CorrectionLevel Niveau de correction d'erreur (L, M, Q, ou H).
 	* @param _PixelScale Facteur d'échelle pour l'image (nombre de pixels par module).
-	* @param _MaskPatern Masque de données à appliquer (de 0 à 7).
 	*
 	* @details
 	* - Appelle la version complète de `GenerateQRCode` avec des couleurs par défaut :
@@ -22,72 +21,78 @@ public:
 	*   - `_FontColor` : Blanc (`{ 240, 240, 240, 255 }`).
 	* - Cela permet de générer un code QR en **noir et blanc** avec un fond blanc.
 	*/
-	static void GenerateQRCode(const std::string& _Filename, const std::string _Text, CorrectionLevel _CorrectionLevel, int _PixelScale = 20, uint8_t _MaskPatern = 0);
+	static void GenerateQRCode(const std::string& _Filename, const std::string _Text, CorrectionLevel _CorrectionLevel, int _PixelScale = 20);
 
 	/**
-	* @brief Génère un code QR et l'enregistre dans un fichier PNG avec des couleurs personnalisées.
+	* @brief Génère un code QR et l'enregistre dans un fichier PNG avec des couleurs par défaut.
 	* @param _Filename Nom du fichier PNG de sortie.
 	* @param _Text Texte à encoder dans le code QR.
 	* @param _CorrectionLevel Niveau de correction d'erreur (L, M, Q, ou H).
-	* @param _Bit1Color Couleur des modules noirs (1) au format RGBA.
-	* @param _Bit0Color Couleur des modules blancs (0) au format RGBA.
-	* @param _FontColor Couleur de la police (non utilisée dans cette implémentation).
 	* @param _PixelScale Facteur d'échelle pour l'image (nombre de pixels par module).
-	* @param _MaskPatern Masque de données à appliquer (de 0 à 7).
 	*
 	* @details
-	* ### Étapes de la génération :
-	* 1. **Sélection de la version** :
-	*    - Utilise `QRCodeDataEncoding::SelectVersionForText(_Text, _CorrectionLevel)` pour déterminer la version minimale nécessaire.
-	*
-	* 2. **Génération du code QR simple** :
-	*    - Appelle `GenerateSimpleQR(_Text, version, _CorrectionLevel, _MaskPatern)` pour créer une matrice de code QR avec les motifs fonctionnels et les données placées.
-	*
-	* 3. **Application des couleurs** :
-	*    - Définit les couleurs pour les modules noirs (`Bit1Color`), blancs (`Bit0Color`), et la police (`FontColor`).
-	*
-	* 4. **Génération des données de pixels** :
-	*    - Appelle `GenerateQRPixelData(data, _PixelScale)` pour convertir la matrice en données de pixels (RGBA).
-	*
-	* 5. **Génération du fichier PNG** :
-	*    - Appelle `QRCodePNGFile::GeneratePNGFile` pour enregistrer l'image PNG.
+	* - Appelle la version complète de `GenerateQRCode` avec des couleurs par défaut :
+	*   - `_Bit1Color` : Noir (`{ 20, 20, 20, 255 }`).
+	*   - `_Bit0Color` : Blanc (`{ 240, 240, 240, 255 }`).
+	*   - `_FontColor` : Blanc (`{ 240, 240, 240, 255 }`).
+	* - Cela permet de générer un code QR en **noir et blanc** avec un fond blanc.
 	*/
-	static void GenerateQRCode(const std::string& _Filename, const std::string _Text, CorrectionLevel _CorrectionLevel, RGBA _Bit1Color, RGBA _Bit0Color, RGBA _FontColor, int _PixelScale = 20, uint8_t _MaskPatern = 0);
+	static void GenerateQRCode(const std::string& _Filename, const std::string _Text, CorrectionLevel _CorrectionLevel, RGBA _Bit1Color, RGBA _Bit0Color, RGBA _FontColor, int _PixelScale = 20);
 
 private:
 
 	/**
-	* @brief Génère une matrice de code QR simple avec les données encodées et les motifs fonctionnels.
+	* @brief Génère une matrice de code QR complète (motifs fonctionnels + données + masque).
 	* @param _Text Texte à encoder.
 	* @param _QRVersion Version du code QR.
 	* @param _CorrectionLevel Niveau de correction d'erreur.
-	* @param _MaskPatern Masque de données à appliquer.
-	* @return Structure `QRCodeData` contenant la matrice du code QR et les données encodées.
+	* @return Structure QRCodeData contenant la matrice, les données, et les zones réservées.
+	*
+	* @throws std::invalid_argument Si le masque sélectionné est invalide.
 	*
 	* @details
 	* ### Étapes de la génération :
-	* 1. **Initialisation de la structure `QRCodeData`** :
-	*    - Crée une instance vide `outQRData`.
+	* 1. **Initialisation de la structure** :
+	*    - Crée une instance vide de `QRCodeData` (`outQRData`).
 	*
-	* 2. **Calcul de la taille de la matrice** :
-	*    - `matrixSize = 21 + (_QRVersion - 1) * 4` (taille en modules pour la version donnée).
+	* 2. **Encodage du texte** :
+	*    - Appelle `QRCodeDataEncoding::EncodeTextToDataCodewords(_Text, _QRVersion, _CorrectionLevel)` pour convertir le texte en **codewords**.
+	*    - Stocke le résultat dans `outQRData.Bits`.
 	*
-	* 3. **Génération des motifs fonctionnels** :
-	*    - Appelle `QRCodeFunctionPatterns::Generate` pour dessiner les repères de position, les motifs de synchronisation, les motifs d'alignement, et les informations de format/version.
+	* 3. **Correction d'erreur et entrelacement** :
+	*    - Appelle `QRCodeReedSolomonCorrector::ErrorCorrectionAndInterleave(outQRData.Bits, _QRVersion, _CorrectionLevel)` pour :
+	*      - Ajouter des **octets de correction (ECC)**.
+	*      - **Entrelacer** les données et les ECC.
+	*    - Met à jour `outQRData.Bits` avec le résultat.
 	*
-	* 4. **Encodage des données** :
-	*    - Appelle `QRCodeDataEncoding::EncodeTextToDataCodewords` pour convertir `_Text` en une séquence de codewords (`outQRData.Bits`).
+	* 4. **Sélection du meilleur masque** :
+	*    - Appelle `QRCodeMasking::SelectBestMask(outQRData.Bits, _QRVersion, _CorrectionLevel)` pour choisir le masque qui minimise les motifs problématiques.
+	*    - Vérifie que `maskPattern` est valide (entre 0 et 7).
 	*
-	* 5. **Correction d'erreur et entrelacement** :
-	*    - Appelle `QRCodeReedSolomonCorrector::ErrorCorrectionAndInterleave` pour ajouter des octets de correction et entrelacer les données.
+	* 5. **Génération des motifs fonctionnels** :
+	*    - Appelle `QRCodeFunctionPatterns::Generate(outQRData, _QRVersion, _CorrectionLevel, maskPattern)` pour dessiner :
+	*      - Les **repères de position** (Finder Patterns).
+	*      - Les **motifs de synchronisation** (Timing Patterns).
+	*      - Les **motifs d'alignement** (Alignment Patterns).
+	*      - L'**information de format** (Format Information).
+	*      - L'**information de version** (Version Information, si version >= 7).
 	*
 	* 6. **Placement des codewords** :
-	*    - Appelle `QRCodeBitPlacement::PlaceCodewords` pour placer les codewords entrelacés dans la matrice `outQRData.MatrixQR`.
+	*    - Appelle `QRCodeBitPlacement::PlaceCodewords(outQRData.Bits, _QRVersion, outQRData.MatrixQR, outQRData.Reserved)` pour :
+	*      - Placer les **codewords entrelacés** dans la matrice.
+	*      - Éviter les **zones réservées** (motifs fonctionnels).
 	*
-	* 7. **Retourne la structure `QRCodeData`** :
-	*    - Contient la matrice du code QR (`MatrixQR`) et les données encodées (`Bits`).
+	* 7. **Application du masque** :
+	*    - Appelle `QRCodeMasking::ApplyMask(outQRData.MatrixQR, outQRData.Reserved, maskPattern)` pour :
+	*      - Inverser certains modules selon le masque sélectionné.
+	*      - Éviter les **motifs problématiques** (lignes droites, carrés uniformes, etc.).
+	*
+	* @note
+	* - **Ordre des étapes** : Les étapes sont **séquentielles** et dépendent les unes des autres.
+	*   - Exemple : Les motifs fonctionnels doivent être dessinés **avant** le placement des codewords.
+	* - **Masque automatique** : `SelectBestMask` choisit automatiquement le meilleur masque parmi les 8 disponibles.
 	*/
-	static QRCodeData GenerateSimpleQR(const std::string _Text, int _QRVersion, CorrectionLevel _CorrectionLevel, uint8_t _MaskPatern);
+	static QRCodeData GenerateSimpleQR(const std::string _Text, int _QRVersion, CorrectionLevel _CorrectionLevel);
 
 	/**
 	* @brief Génère les données de pixels (RGBA) pour une image du code QR avec une marge blanche.
