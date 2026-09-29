@@ -18,3 +18,5 @@ add_executable(Test ${GAME_SOURCES})
 
 target_include_directories(Test PRIVATE ${CMAKE_SOURCE_DIR}/src/QRCodeGenerator)
 
+target_link_libraries(Test PRIVATE QRCodeGenerator)
+
