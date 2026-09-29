@@ -8,49 +8,51 @@ class QRCodeGenerator
 public:
 
 	/**
-	* @brief Génère un code QR avec des couleurs par défaut et l'enregistre dans un fichier PNG.
+	* @brief Génère un code QR et l'enregistre dans un fichier PNG avec des couleurs par défaut.
+	* @param _Filename Nom du fichier PNG de sortie.
 	* @param _Text Texte à encoder dans le code QR.
 	* @param _CorrectionLevel Niveau de correction d'erreur (L, M, Q, ou H).
-	* @param _PixelScale Facteur d'échelle pour l'image (nombre de pixels par module du code QR).
+	* @param _PixelScale Facteur d'échelle pour l'image (nombre de pixels par module).
 	* @param _MaskPatern Masque de données à appliquer (de 0 à 7).
 	*
 	* @details
 	* - Appelle la version complète de `GenerateQRCode` avec des couleurs par défaut :
-	*   - `_Bit1Color = { 20, 20, 20, 255 }` (noir).
-	*   - `_Bit0Color = { 240, 240, 240, 255 }` (gris clair).
-	*   - `_FontColor = { 240, 240, 240, 255 }` (gris clair, pour le fond).
-	* - Le fichier PNG résultant est nommé **"QRCode.png"**.
+	*   - `_Bit1Color` : Noir (`{ 20, 20, 20, 255 }`).
+	*   - `_Bit0Color` : Blanc (`{ 240, 240, 240, 255 }`).
+	*   - `_FontColor` : Blanc (`{ 240, 240, 240, 255 }`).
+	* - Cela permet de générer un code QR en **noir et blanc** avec un fond blanc.
 	*/
-	static void GenerateQRCode(const std::string _Text, CorrectionLevel _CorrectionLevel, int _PixelScale = 20, uint8_t _MaskPatern = 0);
+	static void GenerateQRCode(const std::string& _Filename, const std::string _Text, CorrectionLevel _CorrectionLevel, int _PixelScale = 20, uint8_t _MaskPatern = 0);
 
 	/**
-	* @brief Génère un code QR avec des couleurs personnalisées et l'enregistre dans un fichier PNG.
+	* @brief Génère un code QR et l'enregistre dans un fichier PNG avec des couleurs personnalisées.
+	* @param _Filename Nom du fichier PNG de sortie.
 	* @param _Text Texte à encoder dans le code QR.
 	* @param _CorrectionLevel Niveau de correction d'erreur (L, M, Q, ou H).
 	* @param _Bit1Color Couleur des modules noirs (1) au format RGBA.
 	* @param _Bit0Color Couleur des modules blancs (0) au format RGBA.
-	* @param _FontColor Couleur de fond du code QR au format RGBA.
-	* @param _PixelScale Facteur d'échelle pour l'image (nombre de pixels par module du code QR).
+	* @param _FontColor Couleur de la police (non utilisée dans cette implémentation).
+	* @param _PixelScale Facteur d'échelle pour l'image (nombre de pixels par module).
 	* @param _MaskPatern Masque de données à appliquer (de 0 à 7).
 	*
 	* @details
 	* ### Étapes de la génération :
 	* 1. **Sélection de la version** :
-	*    - Utilise `QRCodeDataEncoding::SelectVersionForText` pour déterminer la version minimale nécessaire pour encoder `_Text` avec `_CorrectionLevel`.
+	*    - Utilise `QRCodeDataEncoding::SelectVersionForText(_Text, _CorrectionLevel)` pour déterminer la version minimale nécessaire.
 	*
 	* 2. **Génération du code QR simple** :
-	*    - Appelle `GenerateSimpleQR` pour créer une matrice de code QR avec les données encodées, la correction d'erreur, et les motifs fonctionnels.
+	*    - Appelle `GenerateSimpleQR(_Text, version, _CorrectionLevel, _MaskPatern)` pour créer une matrice de code QR avec les motifs fonctionnels et les données placées.
 	*
-	* 3. **Personnalisation des couleurs** :
-	*    - Définit les couleurs pour les modules noirs (`Bit1Color`), blancs (`Bit0Color`), et le fond (`FontColor`) dans `data`.
+	* 3. **Application des couleurs** :
+	*    - Définit les couleurs pour les modules noirs (`Bit1Color`), blancs (`Bit0Color`), et la police (`FontColor`).
 	*
 	* 4. **Génération des données de pixels** :
-	*    - Appelle `GenerateQRPixelData` pour convertir la matrice du code QR en une structure `QRPixelData` (contenant les pixels de l'image).
+	*    - Appelle `GenerateQRPixelData(data, _PixelScale)` pour convertir la matrice en données de pixels (RGBA).
 	*
 	* 5. **Génération du fichier PNG** :
-	*    - Appelle `QRCodePNGFile::GeneratePNGFile` pour créer un fichier PNG nommé **"QRCode.png"** avec les données de pixels.
+	*    - Appelle `QRCodePNGFile::GeneratePNGFile` pour enregistrer l'image PNG.
 	*/
-	static void GenerateQRCode(const std::string _Text, CorrectionLevel _CorrectionLevel, RGBA _Bit1Color, RGBA _Bit0Color, RGBA _FontColor, int _PixelScale = 20, uint8_t _MaskPatern = 0);
+	static void GenerateQRCode(const std::string& _Filename, const std::string _Text, CorrectionLevel _CorrectionLevel, RGBA _Bit1Color, RGBA _Bit0Color, RGBA _FontColor, int _PixelScale = 20, uint8_t _MaskPatern = 0);
 
 private:
 

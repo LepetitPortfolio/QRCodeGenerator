@@ -6,12 +6,12 @@
 #include "QRCodeBitPlacement.h"
 #include "QRCodePNGFile.h"
 
-void QRCodeGenerator::GenerateQRCode(const std::string _Text, CorrectionLevel _CorrectionLevel, int _PixelScale, uint8_t _MaskPatern)
+void QRCodeGenerator::GenerateQRCode(const std::string& _Filename, const std::string _Text, CorrectionLevel _CorrectionLevel, int _PixelScale, uint8_t _MaskPatern)
 {
-	GenerateQRCode(_Text, _CorrectionLevel, { 20, 20, 20, 255 }, { 240, 240, 240, 255 }, { 240, 240, 240, 255 }, _PixelScale, _MaskPatern);
+	GenerateQRCode(_Filename, _Text, _CorrectionLevel, { 20, 20, 20, 255 }, { 240, 240, 240, 255 }, { 240, 240, 240, 255 }, _PixelScale, _MaskPatern);
 }
 
-void QRCodeGenerator::GenerateQRCode(const std::string _Text, CorrectionLevel _CorrectionLevel, RGBA _Bit1Color, RGBA _Bit0Color, RGBA _FontColor, int _PixelScale, uint8_t _MaskPatern)
+void QRCodeGenerator::GenerateQRCode(const std::string& _Filename, const std::string _Text, CorrectionLevel _CorrectionLevel, RGBA _Bit1Color, RGBA _Bit0Color, RGBA _FontColor, int _PixelScale, uint8_t _MaskPatern)
 {
 	int version = QRCodeDataEncoding().SelectVersionForText(_Text, _CorrectionLevel);
 	QRCodeData data = GenerateSimpleQR(_Text, version, _CorrectionLevel, _MaskPatern);
@@ -25,7 +25,7 @@ void QRCodeGenerator::GenerateQRCode(const std::string _Text, CorrectionLevel _C
 
 	QRPixelData pixelData = GenerateQRPixelData(data, scale);
 
-	QRCodePNGFile::GeneratePNGFile("QRCode.png", pixelData.Width, pixelData.Height, pixelData.PixelData);
+	QRCodePNGFile::GeneratePNGFile(_Filename, pixelData.Width, pixelData.Height, pixelData.PixelData);
 }
 
 QRCodeData QRCodeGenerator::GenerateSimpleQR(const std::string _Text, int _QRVersion, CorrectionLevel _CorrectionLevel, uint8_t _MaskPatern)
