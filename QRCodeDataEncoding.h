@@ -8,7 +8,54 @@ class QRCodeDataEncoding
 {
 public:
 
-	int SelectVersionForText(const std::string& text, CorrectionLevel correctionLevel);
+	/**
+	* @brief Sélectionne la version minimale d'un code QR nécessaire pour encoder un texte donné.
+	* @param _Text Texte à encoder.
+	* @param _CorrectionLevel Niveau de correction d'erreur (L, M, Q, ou H).
+	* @return Version minimale (de 1 à 40) capable de stocker le texte avec le niveau de correction donné.
+	* @throws std::invalid_argument Si le niveau de correction est invalide.
+	* @throws std::length_error Si le texte est trop long pour tenir dans une version QR 1-40 avec le niveau de correction donné.
+	*
+	* @details
+	* ### Étapes de la sélection :
+	* 1. **Validation du niveau de correction** :
+	*    - Vérifie que `_CorrectionLevel` est valide (L=0, M=1, Q=2, H=3).
+	*    - Si `_CorrectionLevel` > 3, lève une exception.
+	*
+	* 2. **Parcours des versions (1 à 40)** :
+	*    - Pour chaque version, calcule :
+	*      - **Largeur de l'indicateur de longueur** (`countBitWidth`) :
+	*        - **8 bits** pour les versions 1-9 (permet d'encoder jusqu'à 255 octets).
+	*        - **16 bits** pour les versions 10-40 (permet d'encoder jusqu'à 65 535 octets).
+	*      - **Longueur maximale du texte** (`maxByteCount`) :
+	*        - 255 octets si `countBitWidth == 8`.
+	*        - 65 535 octets si `countBitWidth == 16`.
+	*
+	* 3. **Vérification de la taille du texte** :
+	*    - Si `_Text.size() > maxByteCount`, passe à la version suivante (car le texte ne peut pas être encodé avec cette version).
+	*
+	* 4. **Calcul des bits nécessaires** :
+	*    - **Indicateur de mode** : 4 bits (pour le mode octets).
+	*    - **Indicateur de longueur** : `countBitWidth` bits (8 ou 16).
+	*    - **Données** : `_Text.size() * 8` bits (1 octet = 8 bits par caractère).
+	*    - **Total** : `requiredBits = 4 + countBitWidth + _Text.size() * 8`.
+	*
+	* 5. **Calcul des bits disponibles** :
+	*    - **Codewords disponibles** : `DataCodewords[version - 1][levelIndex]` (nombre de codewords pour cette version et ce niveau).
+	*    - **Bits disponibles** : `availableBits = DataCodewords[version - 1][levelIndex] * 8`.
+	*
+	* 6. **Comparaison** :
+	*    - Si `requiredBits <= availableBits`, retourne la version actuelle (car elle peut stocker le texte).
+	*    - Sinon, passe à la version suivante.
+	*
+	* 7. **Si aucune version ne convient** :
+	*    - Si la boucle termine sans trouver de version valide, lève une exception `std::length_error`.
+	*
+	* @note
+	* - **`DataCodewords`** : Tableau 2D où `DataCodewords[version - 1][levelIndex]` donne le nombre de codewords disponibles pour la version `version` et le niveau de correction `levelIndex`.
+	* - **Efficacité** : La fonction retourne la **première version** capable de stocker le texte, ce qui minimise la taille du code QR.
+	*/
+	static int SelectVersionForText(const std::string& text, CorrectionLevel correctionLevel);
 
 	/**
 	* @brief Encode un texte en codewords pour un code QR, en utilisant le mode octets.
