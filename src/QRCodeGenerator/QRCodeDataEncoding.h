@@ -1,5 +1,5 @@
 #pragma once
-#include "QRCodeFormatPattern.h"
+#include "QRCodeData.h"
 
 #include <string>
 #include <vector>

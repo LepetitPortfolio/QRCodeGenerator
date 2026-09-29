@@ -1,6 +1,5 @@
 #include "QRCodeGenerator.h"
 #include "QRCodeFunctionPatterns.h"
-#include "QRCodeFormatPattern.h"
 #include "QRCodeDataEncoding.h"
 #include "QRCodeReedSolomonCorrector.h"
 #include "QRCodeBitPlacement.h"
