@@ -1,10 +1,8 @@
-#include "QRCodeData.h"
 #include "QRCodeGenerator.h"
 
 #include <iostream>
 #include <vector>
 #include <string>
-
 
 /// @brief Affiche la matrice QR dans la console avec des caractères personnalisables
 /// @param _MatrixQR Matrice QR à afficher
@@ -29,9 +27,11 @@ int main()
 	std::cout << "Entrez le texte ou URL à coder : ";
 	std::getline(std::cin, text);
 
-	QRCodeGenerator::GenerateQRCode("QRCode.png", text, CorrectionLevel::M, 0);
+	std::string filename = "QRCode.png";
+
+	QRCodeGenerator::GenerateQRCode(filename, text, CorrectionLevel::M, 0);
 	
-	std::cout << "QR Code enregistré sous 'QRCode.png'" << std::endl;
+	std::cout << "QR Code enregistré sous " << filename << std::endl;
 
 	return 0;
 }

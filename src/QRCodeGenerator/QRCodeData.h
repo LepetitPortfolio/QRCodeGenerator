@@ -7,7 +7,7 @@
 #include <vector>
 
 /// @brief Niveaux de correction pour le QR code
-enum CorrectionLevel
+enum class CorrectionLevel
 {
 	L = 1,
 	M = 0,
