@@ -1,4 +1,5 @@
 #pragma once
+#include "QRCodeColor.h"
 
 #include <cstdint>
 #include <fstream>
@@ -10,6 +11,13 @@
 class QRCodePNGFile
 {
 public:
+
+    /// @brief Sauvegarde une image PNG à partir de données de pixels RGBA
+    /// @param _Filename Nom du fichier de sortie
+    /// @param _Width Largeur de l'image en pixels
+    /// @param _Height Hauteur de l'image en pixels
+    /// @param _PixelData Données des pixels au format RGBA (4 octets par pixel)
+    static void GeneratePNGFile(const std::string& _Filename, int _Width, int _Height, const std::vector<RGBA>& _PixelData);
 
     /// @brief Sauvegarde une image PNG à partir de données de pixels RGBA
     /// @param _Filename Nom du fichier de sortie

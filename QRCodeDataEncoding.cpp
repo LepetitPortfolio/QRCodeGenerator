@@ -4,6 +4,38 @@
 #include <stdexcept>
 
 
+int QRCodeDataEncoding::SelectVersionForText(const std::string& _Text, CorrectionLevel _CorrectionLevel)
+{
+	const auto levelIndex = static_cast<std::size_t>(_CorrectionLevel);
+	if (levelIndex > 3)
+	{
+		throw std::invalid_argument("Niveau de correction invalide (L, M, Q ou H).");
+	}
+
+	for (int version = 1; version <= 40; ++version) 
+	{
+		// Le champ de longueur du mode octets fait 8 bits en versions 1–9,
+		// puis 16 bits en versions 10–40.
+		const int countBitWidth = (version <= 9) ? 8 : 16;
+		const std::size_t maxByteCount = (countBitWidth == 8) ? 255 : 65535;
+
+		if (_Text.size() > maxByteCount)
+		{
+			continue;
+		}
+
+		const std::size_t requiredBits = 4 + countBitWidth + _Text.size() * 8;
+		const std::size_t availableBits = static_cast<std::size_t>(DataCodewords[version - 1][levelIndex]) * 8;
+
+		if (requiredBits <= availableBits)
+		{
+			return version;
+		}
+	}
+
+	throw std::length_error("Le texte ne tient dans aucune version QR de 1 à 40 pour ce niveau.");
+}
+
 std::vector<uint8_t> QRCodeDataEncoding::EncodeTextToDataCodewords(const std::string& _Text, int _Version, CorrectionLevel _CorrectionLevel)
 {
 	if (_Version < 1 || _Version > 40)

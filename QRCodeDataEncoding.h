@@ -8,6 +8,8 @@ class QRCodeDataEncoding
 {
 public:
 
+	int SelectVersionForText(const std::string& text, CorrectionLevel correctionLevel);
+
 	/**
 	* @brief Encode un texte en codewords pour un code QR, en utilisant le mode octets.
 	* @param _Text Texte à encoder.

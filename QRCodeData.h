@@ -27,6 +27,26 @@ public:
     RGBA FontColor;
 };
 
+struct QRPixelData
+{
+public:
+	QRPixelData() = default;
+
+	QRPixelData(int _Width, int _Height, int _PixelScale, RGBA _DefaultFontColor = RGBA{}) 
+	{
+		Width = _Width;
+		Height = _Height;
+		PixelScale = _PixelScale;
+		PixelData = std::vector<RGBA>(_Width * _Height, _DefaultFontColor);
+	}
+
+	std::vector<RGBA> PixelData;
+
+	int PixelScale = 1;
+	int Width = 0;
+	int Height = 0;
+};
+
 
 // Nombre de codewords de données selon la version (ligne) et le niveau L/M/Q/H (colonne).
 // Valeurs de la table de capacité QR, versions 1 à 40.

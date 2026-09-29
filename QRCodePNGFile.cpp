@@ -1,5 +1,18 @@
 #include "QRCodePNGFile.h"
 
+void QRCodePNGFile::GeneratePNGFile(const std::string& _Filename, int _Width, int _Height, const std::vector<RGBA>& _PixelData)
+{
+    std::vector<unsigned char> pixelData;
+    pixelData.reserve(_Width * _Height * 4);
+    for (const RGBA& pixel : _PixelData)
+    {
+        pixelData.push_back(pixel.R);
+        pixelData.push_back(pixel.G);
+        pixelData.push_back(pixel.B);
+        pixelData.push_back(pixel.A);
+    }
+	GeneratePNGFile(_Filename, _Width, _Height, pixelData);
+}
 
 void QRCodePNGFile::GeneratePNGFile(const std::string &_Filename, int _Width, int _Height, const std::vector<unsigned char> &_PixelData)
 {
