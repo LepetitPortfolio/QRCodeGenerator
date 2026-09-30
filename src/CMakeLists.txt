@@ -17,8 +17,3 @@ file(GLOB_RECURSE SLE_HEADERS
 )
 
 add_library(QRCodeGenerator STATIC ${SRC_SOURCES} ${SLE_HEADERS})
-
-
-
-
-
